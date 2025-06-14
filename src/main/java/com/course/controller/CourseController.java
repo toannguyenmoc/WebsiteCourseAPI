@@ -34,7 +34,8 @@ public class CourseController {
         List<CourseResponseDTO> responseList = courseService.findAll().stream()
             .map(CourseMapper::toResponse)
             .sorted(Comparator.comparing(CourseResponseDTO::getTitle).reversed()
-            					.thenComparing(CourseResponseDTO::getPrice).reversed())
+            					.thenComparing(CourseResponseDTO::getPrice).reversed()
+            					.thenComparing(CourseResponseDTO::getCreatedDate))
             .collect(Collectors.toList());
         return ResponseEntity.ok(responseList);
     }
