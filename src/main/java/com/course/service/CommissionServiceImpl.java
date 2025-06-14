@@ -1,11 +1,11 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course.exception.ResourceNotFoundException;
 import com.course.model.Commission;
 import com.course.repository.CommissionRepository;
 
@@ -26,20 +26,21 @@ public class CommissionServiceImpl implements CommissionService {
     }
 
     @Override
-    public Optional<Commission> update(Commission commission) {
-        if (commission.getId() == null || !commissionRepository.existsById(commission.getId())) {
-            return Optional.empty();
-        }
-        return Optional.of(commissionRepository.save(commission));
+    public Commission update(Commission commission) {
+    	findById(commission.getId());
+        return commissionRepository.save(commission);
     }
 
     @Override
-    public Optional<Commission> findById(Integer id) {
-        return commissionRepository.findById(id);
+    public Commission findById(Integer id) {
+    	return commissionRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("không tìm thấy"));
     }
 
     @Override
-    public void deleteById(Integer id) {
-        commissionRepository.deleteById(id);
+    public Commission deleteById(Integer id) {
+    	Commission commission = findById(id);
+    	commissionRepository.deleteById(id);
+        return commission;
     }
 }

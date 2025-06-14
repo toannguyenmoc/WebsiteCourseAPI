@@ -1,7 +1,6 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ public interface CourseTypeService {
     
     public CourseType create(CourseType courseType);                   
     public List<CourseType> findAll();                            
-    public Optional<CourseType> update(CourseType courseType);
-    public Optional<CourseType> findById(Integer id);              
-    public void deleteById(Integer id); 
+    public CourseType update(CourseType courseType);
+    public CourseType findById(Integer id);              
+    public CourseType deleteById(Integer id); 
 }

@@ -1,11 +1,11 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course.exception.ResourceNotFoundException;
 import com.course.model.CourseType;
 import com.course.repository.CourseTypeRepository;
 
@@ -26,20 +26,21 @@ public class CourseTypeServiceImpl implements CourseTypeService {
     }
 
     @Override
-    public Optional<CourseType> update(CourseType courseType) {
-        if (courseType.getId() == null || !courseTypeRepository.existsById(courseType.getId())) {
-            return Optional.empty();
-        }
-        return Optional.of(courseTypeRepository.save(courseType));
+    public CourseType update(CourseType courseType) {
+    	findById(courseType.getId());
+        return courseTypeRepository.save(courseType);
     }
 
     @Override
-    public Optional<CourseType> findById(Integer id) {
-        return courseTypeRepository.findById(id);
+    public CourseType findById(Integer id) {
+    	return courseTypeRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("không tìm thấy"));
     }
 
     @Override
-    public void deleteById(Integer id) {
-        courseTypeRepository.deleteById(id);
+    public CourseType deleteById(Integer id) {
+    	CourseType courseType = findById(id);
+    	courseTypeRepository.deleteById(id);
+        return courseType;
     }
 }

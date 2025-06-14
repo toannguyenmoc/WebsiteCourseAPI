@@ -1,11 +1,11 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course.exception.ResourceNotFoundException;
 import com.course.model.Lesson;
 import com.course.repository.LessonRepository;
 
@@ -26,20 +26,21 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public Optional<Lesson> update(Lesson lesson) {
-        if (lesson.getId() == null || !lessonRepository.existsById(lesson.getId())) {
-            return Optional.empty();
-        }
-        return Optional.of(lessonRepository.save(lesson));
+    public Lesson update(Lesson lesson) {
+    	findById(lesson.getId());
+        return lessonRepository.save(lesson);
     }
 
     @Override
-    public Optional<Lesson> findById(Integer id) {
-        return lessonRepository.findById(id);
+    public Lesson findById(Integer id) {
+    	return lessonRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("không tìm thấy"));
     }
 
     @Override
-    public void deleteById(Integer id) {
-        lessonRepository.deleteById(id);
+    public Lesson deleteById(Integer id) {
+    	Lesson lesson = findById(id);
+    	lessonRepository.deleteById(id);
+        return lesson;
     }
 }

@@ -42,18 +42,16 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseResponseDTO> getCourseById(@PathVariable("id") Integer id) {
-        return courseService.findById(id)
-            .map(course -> ResponseEntity.ok(CourseMapper.toResponse(course)))
-            .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(CourseMapper.toResponse(courseService.findById(id)));
     }
 
     @PostMapping
     public ResponseEntity<CourseResponseDTO> createCourse(@Valid @RequestBody CourseRequestDTO dto) {
         Course course = CourseMapper.toEntity(
             dto,
-            accountService.findById(dto.getAccountId()).orElseThrow(),
-            courseTypeService.findById(dto.getCourseTypeId()).orElseThrow(),
-            commissionService.findById(dto.getCommissionId()).orElseThrow()
+            accountService.findById(dto.getAccountId()),
+            courseTypeService.findById(dto.getCourseTypeId()),
+            commissionService.findById(dto.getCommissionId())
         );
         Course saved = courseService.create(course);
         return ResponseEntity.ok(CourseMapper.toResponse(saved));
@@ -61,29 +59,21 @@ public class CourseController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CourseResponseDTO> updateCourse(@PathVariable("id") Integer id, @Valid @RequestBody CourseRequestDTO dto) {
-        if (courseService.findById(id).isEmpty()) {
-        	return ResponseEntity.notFound().build();
-        }
         
         Course updatedCourse = CourseMapper.toEntity(
             dto,
-            accountService.findById(dto.getAccountId()).orElseThrow(),
-            courseTypeService.findById(dto.getCourseTypeId()).orElseThrow(),
-            commissionService.findById(dto.getCommissionId()).orElseThrow()
+            accountService.findById(dto.getAccountId()),
+            courseTypeService.findById(dto.getCourseTypeId()),
+            commissionService.findById(dto.getCommissionId())
         );
         updatedCourse.setId(id);
 
-        return courseService.update(updatedCourse)
-            .map(course -> ResponseEntity.ok(CourseMapper.toResponse(course)))
-            .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(CourseMapper.toResponse(courseService.update(updatedCourse)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CourseResponseDTO> deleteCourse(@PathVariable("id") Integer id) {
-        return courseService.findById(id).map(course -> {
-            courseService.deleteById(id);
-            return ResponseEntity.ok(CourseMapper.toResponse(course));
-        }).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(CourseMapper.toResponse(courseService.deleteById(id)));
     }
 
 }

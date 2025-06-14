@@ -1,11 +1,11 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course.exception.ResourceNotFoundException;
 import com.course.model.Payment;
 import com.course.repository.PaymentRepository;
 
@@ -26,20 +26,21 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Optional<Payment> update(Payment payment) {
-        if (payment.getId() == null || !paymentRepository.existsById(payment.getId())) {
-            return Optional.empty();
-        }
-        return Optional.of(paymentRepository.save(payment));
+    public Payment update(Payment payment) {
+    	findById(payment.getId());
+        return paymentRepository.save(payment);
     }
 
     @Override
-    public Optional<Payment> findById(Integer id) {
-        return paymentRepository.findById(id);
+    public Payment findById(Integer id) {
+    	return paymentRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("không tìm thấy"));
     }
 
     @Override
-    public void deleteById(Integer id) {
-        paymentRepository.deleteById(id);
+    public Payment deleteById(Integer id) {
+    	Payment payment = findById(id);
+    	paymentRepository.deleteById(id);
+        return payment;
     }
 }

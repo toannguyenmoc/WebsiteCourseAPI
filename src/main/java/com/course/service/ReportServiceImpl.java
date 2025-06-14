@@ -1,11 +1,11 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course.exception.ResourceNotFoundException;
 import com.course.model.Report;
 import com.course.repository.ReportRepository;
 
@@ -26,20 +26,21 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Optional<Report> update(Report report) {
-        if (report.getId() == null || !reportRepository.existsById(report.getId())) {
-            return Optional.empty();
-        }
-        return Optional.of(reportRepository.save(report));
+    public Report update(Report report) {
+    	findById(report.getId());
+        return reportRepository.save(report);
     }
 
     @Override
-    public Optional<Report> findById(Integer id) {
-        return reportRepository.findById(id);
+    public Report findById(Integer id) {
+    	return reportRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("không tìm thấy"));
     }
 
     @Override
-    public void deleteById(Integer id) {
-        reportRepository.deleteById(id);
+    public Report deleteById(Integer id) {
+    	Report report = findById(id);
+    	reportRepository.deleteById(id);
+        return report;
     }
 }

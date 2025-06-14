@@ -1,11 +1,11 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course.exception.ResourceNotFoundException;
 import com.course.model.Comment;
 import com.course.repository.CommentRepository;
 
@@ -26,20 +26,21 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<Comment> update(Comment comment) {
-        if (comment.getId() == null || !commentRepository.existsById(comment.getId())) {
-            return Optional.empty();
-        }
-        return Optional.of(commentRepository.save(comment));
+    public Comment update(Comment comment) {
+    	findById(comment.getId());
+        return commentRepository.save(comment);
     }
 
     @Override
-    public Optional<Comment> findById(Integer id) {
-        return commentRepository.findById(id);
+    public Comment findById(Integer id) {
+    	return commentRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("không tìm thấy"));
     }
 
     @Override
-    public void deleteById(Integer id) {
-        commentRepository.deleteById(id);
+    public Comment deleteById(Integer id) {
+    	Comment comment = findById(id);
+    	commentRepository.deleteById(id);
+        return comment;
     }
 }

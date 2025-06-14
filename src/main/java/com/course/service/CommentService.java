@@ -1,7 +1,6 @@
 package com.course.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ public interface CommentService {
     
     public Comment create(Comment comment);                   
     public List<Comment> findAll();                            
-    public Optional<Comment> update(Comment comment);
-    public Optional<Comment> findById(Integer id);              
-    public void deleteById(Integer id); 
+    public Comment update(Comment comment);
+    public Comment findById(Integer id);              
+    public Comment deleteById(Integer id); 
 }
