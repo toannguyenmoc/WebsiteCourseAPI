@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.course.model.Commission;
+import com.course.dto.CommissionRequestDTO;
+import com.course.dto.CommissionResponseDTO;
+
 
 @Service
 public interface CommissionService {
     
-    public Commission create(Commission commission);                   
-    public List<Commission> findAll();                            
-    public Commission update(Commission commission);
-    public Commission findById(Integer id);              
-    public Commission deleteById(Integer id); 
+    public CommissionResponseDTO create(CommissionRequestDTO commission);                   
+    public List<CommissionResponseDTO> findAll();                            
+    public CommissionResponseDTO update(Integer id, CommissionRequestDTO commissionRequestDTO);
+    public CommissionResponseDTO findById(Integer id);              
+    public CommissionResponseDTO deleteById(Integer id); 
 }
