@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.course.model.Course;
+import com.course.dto.CourseRequestDTO;
+import com.course.dto.CourseResponseDTO;
 
 @Service
 public interface CourseService {
     
-    public Course create(Course course);                   
-    public List<Course> findAll();                            
-    public Course update(Course course);
-    public Course findById(Integer id);              
-    public Course deleteById(Integer id); 
+    public CourseResponseDTO create(CourseRequestDTO courseRequestDTO);                   
+    public List<CourseResponseDTO> findAll();                            
+    public CourseResponseDTO update(Integer id, CourseRequestDTO courseRequestDTO);
+    public CourseResponseDTO findById(Integer id);              
+    public CourseResponseDTO deleteById(Integer id); 
 }
