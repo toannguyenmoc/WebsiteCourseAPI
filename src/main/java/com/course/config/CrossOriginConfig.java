@@ -17,7 +17,7 @@ public class CrossOriginConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(crossOriginProperties.getAllowedOrigins());
-        //config.setAllowCredentials(true);
+        //config.setAllowCredentials(true);	
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 

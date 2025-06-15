@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.util.Date;
 
+import com.course.model.Account;
+
 @Data
 public class CourseResponseDTO {
     private Integer id;
@@ -22,4 +24,7 @@ public class CourseResponseDTO {
     private String accountFullname;
     private String courseTypeName;
     private Double commissionPercentage;
+    
+    private Account account;
+    
 }
