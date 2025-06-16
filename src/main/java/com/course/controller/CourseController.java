@@ -1,6 +1,6 @@
 package com.course.controller;
 
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +18,17 @@ public class CourseController {
 
     @Autowired private CourseService courseService;
 
+//    @GetMapping
+//    public ResponseEntity<List<CourseResponseDTO>> getAllCourses() {
+//        return ResponseEntity.ok(courseService.findAll());
+//    }
+    
     @GetMapping
-    public ResponseEntity<List<CourseResponseDTO>> getAllCourses() {
-        return ResponseEntity.ok(courseService.findAll());
+    public ResponseEntity<?> getPagedCourses(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
+        return courseService.getPagedCourses(page, size);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseResponseDTO> getCourseById(@PathVariable("id") Integer id) {

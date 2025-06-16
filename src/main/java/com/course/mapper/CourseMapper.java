@@ -54,9 +54,6 @@ public class CourseMapper {
         dto.setCourseTypeName(course.getCourseType().getName());
         dto.setCommissionPercentage(course.getCommission().getPercentage());
         
-        course.getAccount().setPassword(null);
-        dto.setAccount(course.getAccount());
-        
         return dto;
     }
 }
