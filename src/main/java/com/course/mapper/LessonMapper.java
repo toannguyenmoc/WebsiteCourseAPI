@@ -49,9 +49,6 @@ public class LessonMapper {
                 dto.setCourseTypeName(lesson.getCourse().getCourseType().getName());
             }
 
-            if (lesson.getCourse().getCommission() != null) {
-                dto.setPercentage(lesson.getCourse().getCommission().getPercentage());
-            }
         }
         
         return dto;

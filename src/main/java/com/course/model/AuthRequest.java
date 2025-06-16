@@ -1,4 +1,4 @@
-package com.course.dto;
+package com.course.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseTypeResponseDTO {
-	private Integer id;
-	 private String name;
-	  private Boolean status;
+public class AuthRequest {
+    private String email;
+    private String password;
 }

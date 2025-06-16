@@ -1,7 +1,5 @@
 package com.course.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +16,16 @@ public class LessonController {
 
     @Autowired private LessonService lessonService;
 
+//    @GetMapping
+//    public ResponseEntity<List<LessonResponseDTO>> getAllLessons() {
+//        return ResponseEntity.ok(lessonService.findAll());
+//    }
+    
     @GetMapping
-    public ResponseEntity<List<LessonResponseDTO>> getAllLessons() {
-        return ResponseEntity.ok(lessonService.findAll());
+    public ResponseEntity<?> getPagedLessons(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
+        return lessonService.getPagedLessons(page, size);
     }
 
     @GetMapping("/{id}")
@@ -42,5 +47,6 @@ public class LessonController {
     public ResponseEntity<LessonResponseDTO> deleteLesson(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(lessonService.deleteById(id));
     }
+
 
 }

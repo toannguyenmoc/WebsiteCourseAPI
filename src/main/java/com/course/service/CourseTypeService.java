@@ -2,6 +2,7 @@ package com.course.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -17,4 +18,5 @@ public interface CourseTypeService {
     public CourseTypeResponseDTO update(Integer id, CourseTypeRequestDTO courseTypeRequestDTO);
     public CourseTypeResponseDTO findById(Integer id);              
     public CourseTypeResponseDTO deleteById(Integer id); 
+    public ResponseEntity<?> getPagedCourseTypes(int page, int size);
 }
