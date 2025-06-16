@@ -73,8 +73,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public ResponseEntity<?> getPagedCourses(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<CourseResponseDTO> result = courseRepository.findPaged(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending().and(Sort.by("title").ascending()));
+        Page<Course> list = courseRepository.findAll(pageable);
+	    Page<CourseResponseDTO> result = list.map(CourseMapper::toResponse);
 
         Map<String, Object> response = new HashMap<>();
         response.put("data", result.getContent());

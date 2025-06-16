@@ -27,9 +27,12 @@ public class CourseResponseDTO {
     private Integer courseTypeId;
     private Integer commissionId;
     
-    private String accountFullname;
+    private String accountTeacher;
     private String courseTypeName;
     private Double commissionPercentage;
     
+    private int lessonCount;
     
+    @JsonFormat()
+    private double totalRating;
 }
