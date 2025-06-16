@@ -6,6 +6,6 @@ import com.course.model.Lesson;
 
 public interface LessonRepository extends JpaRepository<Lesson, Integer> {
 	
-
+	long countByCourse_Id(Integer courseId);
 
 }
