@@ -8,23 +8,32 @@ import com.course.model.*;
 
 public class CourseMapper {
 
-    public static Course toEntity(CourseRequestDTO dto, Account account, CourseType courseType, Commission commission) {
-        Course course = new Course();
-        
-        course.setTitle(dto.getTitle());
-        course.setSlug(dto.getSlug());
-        course.setImage(dto.getImage());
-        course.setDescription(dto.getDescription());
-        course.setPrice(dto.getPrice());
-        course.setStatus(dto.getStatus());
-        course.setCreatedDate(dto.getCreatedDate() != null ? dto.getCreatedDate() : new Date());
+	public static Course toEntity(CourseRequestDTO dto) {
+	    Course course = new Course();
 
-        course.setAccount(account);
-        course.setCourseType(courseType);
-        course.setCommission(commission);
+	    course.setTitle(dto.getTitle());
+	    course.setSlug(dto.getSlug());
+	    course.setImage(dto.getImage());
+	    course.setDescription(dto.getDescription());
+	    course.setPrice(dto.getPrice());
+	    course.setStatus(dto.getStatus());
+	    course.setCreatedDate(dto.getCreatedDate() != null ? dto.getCreatedDate() : new Date());
+	    
+	    Account account = new Account();
+	    account.setId(dto.getAccountId());
+	    course.setAccount(account);
 
-        return course;
-    }
+	    CourseType courseType = new CourseType();
+	    courseType.setId(dto.getCourseTypeId());
+	    course.setCourseType(courseType);
+
+	    Commission commission = new Commission();
+	    commission.setId(dto.getCommissionId());
+	    course.setCommission(commission);
+
+	    return course;
+	}
+
 
     public static CourseResponseDTO toResponse(Course course) {
         CourseResponseDTO dto = new CourseResponseDTO();
@@ -44,7 +53,7 @@ public class CourseMapper {
         dto.setAccountFullname(course.getAccount().getFullname());
         dto.setCourseTypeName(course.getCourseType().getName());
         dto.setCommissionPercentage(course.getCommission().getPercentage());
-
+        
         return dto;
     }
 }

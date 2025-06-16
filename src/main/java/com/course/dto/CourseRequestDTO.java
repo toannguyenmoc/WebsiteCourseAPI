@@ -9,11 +9,13 @@ import java.util.Date;
 public class CourseRequestDTO {
 
     @NotBlank(message = "Tiêu đề không được để trống")
+    @Size(min = 5, max = 250, message = "Độ dài tên phải từ {min} đến {max} ký tự")
     private String title;
 
     @NotBlank(message = "Slug không được để trống")
     private String slug;
 
+    @NotBlank(message = "Hình không được để trống")
     private String image;
 
     @NotBlank(message = "Mô tả không được để trống")
@@ -25,6 +27,7 @@ public class CourseRequestDTO {
 
     private Boolean status;
 
+    @NotNull(message = "Ngày không được để trống")
     private Date createdDate;
 
     @NotNull(message = "AccountId không được để trống")
