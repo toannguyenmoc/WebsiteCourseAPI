@@ -1,20 +1,24 @@
 package com.course.service;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.course.dto.CommissionRequestDTO;
 import com.course.dto.CommissionResponseDTO;
-
 import com.course.exception.ResourceNotFoundException;
 import com.course.mapper.CommissionMapper;
-
 import com.course.model.Commission;
-
 import com.course.repository.CommissionRepository;
 
 @Service
@@ -63,5 +67,20 @@ public class CommissionServiceImpl implements CommissionService {
     	CommissionResponseDTO commissionResponseDTO = findById(id);
     	commissionRepository.deleteById(id);
 		return commissionResponseDTO;
+    }
+    @Override
+    public ResponseEntity<?> getPagedCommission(int page, int size) {
+    	Pageable pageable = PageRequest.of(page, size, Sort.by("effectiveDate").descending());
+    	Page<Commission> list = commissionRepository.findAll(pageable);
+	    Page<CommissionResponseDTO> result = list.map(CommissionMapper::toResponse);
+
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", result.getContent());
+        response.put("currentPage", result.getNumber());
+        response.put("totalItems", result.getTotalElements());
+        response.put("totalPages", result.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 }

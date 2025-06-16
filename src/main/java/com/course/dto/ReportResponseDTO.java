@@ -8,6 +8,7 @@ import lombok.Data;
 public class ReportResponseDTO {
 	private Integer id;
 	private String reason;
+	private String description;
     private Date reportDate;
 
 	private Integer accountId;
