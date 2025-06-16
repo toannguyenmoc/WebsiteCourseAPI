@@ -5,20 +5,21 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.course.dto.AccountRequestDTO;
+import com.course.dto.AccountResponseDTO;
 import com.course.model.Account;
 
-@Service
 public interface AccountService {
 
-    public Account create(Account account);
+    public AccountResponseDTO create(AccountRequestDTO account);
 
-    public List<Account> findAll();
+    public List<AccountResponseDTO> findAll();
 
-    public Account update(Account account);
+    public AccountResponseDTO update(AccountRequestDTO account);
 
-    public Account findById(Integer id);
+    public AccountResponseDTO findById(Integer id);
 
-    public Account deleteById(Integer id);
+    public AccountResponseDTO deleteById(Integer id);
 
     public UserDetails loadUserByUsername(String email);
 }
