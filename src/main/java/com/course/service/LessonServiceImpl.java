@@ -83,10 +83,6 @@ public class LessonServiceImpl implements LessonService {
 	    return ResponseEntity.ok(response);
 	}
 	
-	@Override
-	public long countByCourse(Integer courseId) {
-	    return lessonRepository.countByCourse_Id(courseId);
-	}
 
 
 }

@@ -47,13 +47,6 @@ public class LessonController {
     public ResponseEntity<LessonResponseDTO> deleteLesson(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(lessonService.deleteById(id));
     }
-    
-    @GetMapping("/count")
-    public ResponseEntity<Long> countLessonsByCourse(
-            @RequestParam(name = "courseId", defaultValue = "0") Integer courseId) {
-        long count = lessonService.countByCourse(courseId);
-        return ResponseEntity.ok(count);
-    }
 
 
 }
