@@ -2,15 +2,20 @@ package com.course.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentResponseDTO {
 
 	 private Integer id;
+	 private Double discount;
+	 private Date registrationDate ;
 	private Integer totalAmount;
-    private Double discount;
     private String transactionCode;
-    private Date registrationDate ;
+   
     
     private Integer accountId;
     private Integer courseId;
