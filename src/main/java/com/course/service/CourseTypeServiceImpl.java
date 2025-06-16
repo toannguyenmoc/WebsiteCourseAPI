@@ -1,18 +1,23 @@
 package com.course.service;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.course.dto.CourseTypeRequestDTO;
 import com.course.dto.CourseTypeResponseDTO;
 import com.course.exception.ResourceNotFoundException;
-
 import com.course.mapper.CourseTypeMapper;
-
 import com.course.model.CourseType;
 import com.course.repository.CourseTypeRepository;
 
@@ -63,4 +68,18 @@ public class CourseTypeServiceImpl implements CourseTypeService {
 		courseTypeRepository.deleteById(id);
 		return courseTypeResponseDTO;
 	}
+	@Override
+    public ResponseEntity<?> getPagedCourseTypes(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").descending());
+        Page<CourseType> list = courseTypeRepository.findAll(pageable);
+	    Page<CourseTypeResponseDTO> result = list.map(CourseTypeMapper::toResponse);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", result.getContent());
+        response.put("currentPage", result.getNumber());
+        response.put("totalItems", result.getTotalElements());
+        response.put("totalPages", result.getTotalPages());
+
+        return ResponseEntity.ok(response);
+    }
 }
