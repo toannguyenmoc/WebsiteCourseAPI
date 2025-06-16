@@ -29,6 +29,9 @@ public class Report {
 	
 	@Column(columnDefinition = "nvarchar(max)")
 	private String reason;
+	
+	@Column(columnDefinition = "nvarchar(max)")
+	private String description;
 
 	@Temporal(TemporalType.DATE)
     private Date reportDate = new Date();
