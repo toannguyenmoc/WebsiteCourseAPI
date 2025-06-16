@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.course.model.Comment;
+import com.course.dto.CommentRequestDTO;
+import com.course.dto.CommentResponseDTO;
 
 @Service
 public interface CommentService {
-    
-    public Comment create(Comment comment);                   
-    public List<Comment> findAll();                            
-    public Comment update(Comment comment);
-    public Comment findById(Integer id);              
-    public Comment deleteById(Integer id); 
+
+    public CommentResponseDTO create(CommentRequestDTO dto);
+    public List<CommentResponseDTO> findAll();
+    public CommentResponseDTO update(Integer id, CommentRequestDTO dto);
+    public CommentResponseDTO findById(Integer id);
+    public CommentResponseDTO deleteById(Integer id);
 }
