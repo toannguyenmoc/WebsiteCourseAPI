@@ -13,6 +13,7 @@ public class ReportMapper {
         Report report = new Report();
 
         report.setReason(dto.getReason());
+        report.setDescription(dto.getDescription());
         report.setReportDate(dto.getReportDate() != null ? dto.getReportDate() : new Date());
 
         Course course = new Course();
@@ -31,14 +32,17 @@ public class ReportMapper {
         dto.setId(report.getId());
         dto.setReason(report.getReason());
         dto.setReportDate(report.getReportDate());
-
+        dto.setDescription(report.getDescription());
 
         if (report.getCourse() != null) {
             dto.setCourseId(report.getCourse().getId());
+            dto.setCourseName(report.getCourse().getTitle());
+            dto.setTeacherName(report.getCourse().getAccount() != null ? report.getCourse().getAccount().getFullname() : null);
+            dto.setEmailTeacher(report.getCourse().getAccount() != null ? report.getCourse().getAccount().getEmail() : null);
         }
-        
         if (report.getAccount() != null) {
             dto.setAccountId(report.getAccount().getId());
+            dto.setEmailReport(report.getAccount().getEmail());
         }
 
         return dto;
