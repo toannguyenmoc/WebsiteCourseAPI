@@ -11,6 +11,8 @@ public class ReportRequestDTO {
 	@NotBlank(message = "Tiêu đề không được để trống")
 	private String reason;
 
+	private String description;
+
     private Date reportDate;
     
     @NotNull(message = "AccountId không được để trống")

@@ -1,10 +1,17 @@
 package com.course.service;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.course.dto.ReportRequestDTO;
@@ -60,5 +67,19 @@ public class ReportServiceImpl implements ReportService {
         ReportResponseDTO reportResponseDTO = findById(id); // lấy trước để trả về
         reportRepository.deleteById(id);
         return reportResponseDTO;
+    }
+    @Override
+    public ResponseEntity<?> getPagedReports(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("reportDate").descending());
+        Page<Report> list = reportRepository.findAll(pageable);
+        Page<ReportResponseDTO> result = list.map(ReportMapper::toResponse);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", result.getContent());
+        response.put("currentPage", result.getNumber());
+        response.put("totalItems", result.getTotalElements());
+        response.put("totalPages", result.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 }
