@@ -1,5 +1,6 @@
 package com.course.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.course.service.AccountDetails;
+
 @Service
 public class JwtService {
     // JWT có 3 phần: header , payload (nơi chứ claims), signature (chứa secretkey)
     public static final String SECRET = "5367566859703373367639792F423F452848284D6251655468576D5A71347437";
 
+    @Autowired
+    private AccountService accountService;
+    
     public String generateToken(String email) {
-        Map<String, Object> claims = new HashMap<>();
+//        Map<String, Object> claims = new HashMap<>();
+        Claims claims = Jwts.claims();
+        
+        UserDetails user = accountService.loadUserByUsername(email);
+        claims.put("role", user.getAuthorities());
+
         return createToken(claims, email);
     }
 

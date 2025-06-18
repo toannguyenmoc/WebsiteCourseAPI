@@ -2,6 +2,8 @@ package com.course.controller;
 
 import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
+import com.course.model.Account;
+import com.course.model.AuthRequest;
 import com.course.service.AccountService;
 import com.course.service.JwtService;
 import jakarta.validation.Valid;
@@ -48,6 +50,18 @@ public class AuthController {
     @GetMapping("/test")
     public String testAPI() {
         return "Hello world! (bảo vệ token nếu cần)";
+    }
+    
+    @PostMapping("/generateToken")
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
+        );
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(authRequest.getEmail());
+        } else {
+            throw new UsernameNotFoundException("Invalid user request!");
+        }
     }
 }
 

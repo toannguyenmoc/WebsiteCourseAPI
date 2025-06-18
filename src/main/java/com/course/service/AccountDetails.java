@@ -27,9 +27,9 @@ public class AccountDetails implements UserDetails {
         // .collect(Collectors.toList()); //gom lại thành một list
 
         String roleName = switch (account.getRole()) {
-            case 1 -> "ADMIN";
-            case 2 -> "TEACHER";
-            default -> "NORMAL_USER";
+            case 1 -> "Admin";
+            case 2 -> "Teacher";
+            default -> "User";
         };
 
         // trong trường hợp mỗi account chỉ có một role duy nhất

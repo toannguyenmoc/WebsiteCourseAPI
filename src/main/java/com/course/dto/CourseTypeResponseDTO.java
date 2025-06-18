@@ -11,4 +11,6 @@ public class CourseTypeResponseDTO {
 	private Integer id;
 	 private String name;
 	  private Boolean status;
+	  	private int totalCourse;
+	private String image;
 }

@@ -2,6 +2,8 @@ package com.course.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,7 +28,7 @@ public class LessonRequestDTO {
     private String videoUrl;
 
     private String exerciseUrl;
-
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date postedDate;
 
     private Boolean status;
