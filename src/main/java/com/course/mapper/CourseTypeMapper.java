@@ -20,8 +20,10 @@ public class CourseTypeMapper {
 	        dto.setId(courseType.getId());
 	        dto.setName(courseType.getName());
 	        dto.setStatus(courseType.getStatus());
-	    
-
+	    	if(courseType.getCourses() != null){
+				dto.setTotalCourse(courseType.getCourses().size());
+				dto.setImage(!courseType.getCourses().isEmpty() ? courseType.getCourses().get(0).getImage() : "");
+			}
 	        return dto;
 	    }
 }
