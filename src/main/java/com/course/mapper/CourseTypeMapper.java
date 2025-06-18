@@ -4,7 +4,6 @@ package com.course.mapper;
 
 import com.course.dto.CourseTypeRequestDTO;
 import com.course.dto.CourseTypeResponseDTO;
-
 import com.course.model.CourseType;
 
 public class CourseTypeMapper {
@@ -20,7 +19,7 @@ public class CourseTypeMapper {
 	        dto.setId(courseType.getId());
 	        dto.setName(courseType.getName());
 	        dto.setStatus(courseType.getStatus());
-	    
+	        
 
 	        return dto;
 	    }

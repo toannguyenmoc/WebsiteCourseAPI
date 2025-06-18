@@ -11,4 +11,5 @@ public class CourseTypeResponseDTO {
 	private Integer id;
 	 private String name;
 	  private Boolean status;
+	  
 }
