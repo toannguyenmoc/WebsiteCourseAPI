@@ -54,18 +54,20 @@ public class CourseMapper {
         dto.setCourseTypeName(course.getCourseType().getName());
         dto.setCommissionPercentage(course.getCommission().getPercentage());
         
-        dto.setLessonCount(course.getLessons().size());
+        
+        dto.setLessonCount(course.getLessons() != null ? course.getLessons().size() : 0);
         
         double total = 0;
         double countRating = 0;
         
-        for (Comment comment : course.getComments()) {
-        	if(comment.getRating() != null) {
-        		total += comment.getRating();
-        		countRating++;
-        	}
-		}
-        
+        if(course.getComments() != null) {
+	        for (Comment comment : course.getComments()) {
+	        	if(comment.getRating() != null) {
+	        		total += comment.getRating();
+	        		countRating++;
+	        	}
+			}
+        }
         dto.setTotalRating((countRating) != 0 ? (total/countRating) : 0);
         
         return dto;
