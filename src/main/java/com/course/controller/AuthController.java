@@ -8,6 +8,8 @@ import com.course.service.AccountService;
 import com.course.service.JwtService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
 public class AuthController {
 
-	private final AccountService accountService;
-	private final JwtService jwtService;
-	private final AuthenticationManager authenticationManager;
+	@Autowired
+	private AccountService accountService;
+	@Autowired
+	private JwtService jwtService;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@Valid @RequestBody AccountRequestDTO accountDto) {
