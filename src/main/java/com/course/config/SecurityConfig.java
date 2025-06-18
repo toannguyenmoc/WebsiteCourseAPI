@@ -51,7 +51,7 @@ public class SecurityConfig {
 //            .requestMatchers( "/api/account/addNewUser", "/api/account/generateToken").permitAll()
             
             // Role-based endpoints
-//            .requestMatchers("/auth/user/**").hasAuthority("NORMAL_USER")
+//            .requestMatchers("/auth/user/**").hasAuthority("USER")
 //            .requestMatchers("/auth/admin/**").hasAuthority("ADMIN")
             
             // All other endpoints require authentication

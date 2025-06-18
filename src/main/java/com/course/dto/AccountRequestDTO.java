@@ -29,10 +29,10 @@ public class AccountRequestDTO {
     @Size(max = 100, message = "Họ tên không được vượt quá 100 ký tự")
     private String fullname;
 
-    @NotNull(message = "Giới tính không được để trống")
+//    @NotNull(message = "Giới tính không được để trống")
     private Boolean gender;
 
-    @NotNull(message = "Ngày sinh không được để trống")
+//    @NotNull(message = "Ngày sinh không được để trống")
     @Past(message = "Ngày sinh phải là ngày trong quá khứ")
     private Date birthday;
 

@@ -4,7 +4,6 @@ package com.course.mapper;
 
 import com.course.dto.CourseTypeRequestDTO;
 import com.course.dto.CourseTypeResponseDTO;
-
 import com.course.model.CourseType;
 
 public class CourseTypeMapper {
