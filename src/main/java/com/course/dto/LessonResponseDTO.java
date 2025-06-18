@@ -2,6 +2,8 @@ package com.course.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,6 @@ public class LessonResponseDTO {
     
     private Integer courseId;
     private Integer teacherId;
-    private String courseTypeName;
+    private String courseName;
 
 }

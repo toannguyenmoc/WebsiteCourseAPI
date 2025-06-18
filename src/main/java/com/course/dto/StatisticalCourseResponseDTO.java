@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommissionResponseDTO {
-
-	private Integer id;
-
+public class StatisticalCourseResponseDTO {
+	private Integer courseId;
+	private String courseName;
+	private int totalStudent;
+	private long totalRevenue;
+	private String teacherName;
+	private double rating;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date effectiveDate;
-	private Double percentage;
+	private Date postedDate;
+	private long totalComment;
 }
