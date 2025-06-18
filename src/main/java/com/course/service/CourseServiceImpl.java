@@ -69,21 +69,38 @@ public class CourseServiceImpl implements CourseService {
 		courseRepository.deleteById(id);
 		return courseResponseDTO;
 	}
-	
 
-    @Override
-    public ResponseEntity<?> getPagedCourses(int page, int size, String keyword) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending().and(Sort.by("title").ascending()));
-        Page<Course> list = courseRepository.findByTitleContainingIgnoreCase(keyword, pageable);
-	    Page<CourseResponseDTO> result = list.map(CourseMapper::toResponse);
+	@Override
+	public ResponseEntity<?> getPagedCoursesByManyParams(
+			int page, int size, String keyword, Integer minPrice,
+			Integer maxPrice, List<Integer> courseTypeIds) {
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", result.getContent());
-        response.put("currentPage", result.getNumber());
-        response.put("totalItems", result.getTotalElements());
-        response.put("totalPages", result.getTotalPages());
+		Pageable pageable = PageRequest.of(page, size,
+				Sort.by("createdDate").descending().and(Sort.by("title").ascending()));
+		Page<Course> list;
 
-        return ResponseEntity.ok(response);
-    }
+		if (minPrice != null && maxPrice != null && !courseTypeIds.isEmpty()) {
+			list = courseRepository.findByTitleContainingIgnoreCaseAndPriceBetweenAndCourseTypeIdIn(keyword, minPrice,
+					maxPrice, courseTypeIds, pageable);
+		} else if (minPrice == null && maxPrice == null && !courseTypeIds.isEmpty()) {
+			list = courseRepository.findByTitleContainingIgnoreCaseAndCourseTypeIdIn(keyword, courseTypeIds, pageable);
+		} else if(minPrice != null && maxPrice != null && courseTypeIds.isEmpty()) {
+			list = courseRepository.findByTitleContainingIgnoreCaseAndPriceBetween(keyword, minPrice, maxPrice, pageable);
+		}else if(minPrice == null && maxPrice == null && courseTypeIds.isEmpty()) {
+			list = courseRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+		}else {
+			list = courseRepository.findAll(pageable);			
+		}
+
+		Page<CourseResponseDTO> result = list.map(CourseMapper::toResponse);
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("data", result.getContent());
+		response.put("currentPage", result.getNumber());
+		response.put("totalItems", result.getTotalElements());
+		response.put("totalPages", result.getTotalPages());
+
+		return ResponseEntity.ok(response);
+	};
 
 }

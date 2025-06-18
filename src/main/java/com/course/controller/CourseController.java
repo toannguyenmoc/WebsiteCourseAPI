@@ -1,5 +1,7 @@
 package com.course.controller;
 
+import java.util.List;
+
 //import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,14 @@ public class CourseController {
 //    }
     
     @GetMapping
-    public ResponseEntity<?> getPagedCourses(
+    public ResponseEntity<?> getPagedCoursesByManyParams(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestParam(name = "keyword",defaultValue = "") String keyword) {
-        return courseService.getPagedCourses(page, size, keyword);
+            @RequestParam(name = "keyword",defaultValue = "") String keyword,
+            @RequestParam(name = "minPrice", required = false) Integer minPrice,
+            @RequestParam(name = "maxPrice",required = false) Integer maxPrice,
+            @RequestParam(name = "courseTypeIds", defaultValue = "", required = false) List<Integer> courseTypeIds) {
+        return courseService.getPagedCoursesByManyParams(page, size, keyword, minPrice, maxPrice, courseTypeIds);
     }
 
     @GetMapping("/{id}")
