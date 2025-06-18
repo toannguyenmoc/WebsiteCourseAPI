@@ -16,6 +16,6 @@ public interface LessonService {
     public LessonResponseDTO update(Integer id, LessonRequestDTO lessonRequestDTO);
     public LessonResponseDTO findById(Integer id);              
     public LessonResponseDTO deleteById(Integer id); 
-    public ResponseEntity<?> getPagedLessons(int page, int size);
+    public ResponseEntity<?> getPagedLessons(Integer courseId, int page, int size);
 
 }

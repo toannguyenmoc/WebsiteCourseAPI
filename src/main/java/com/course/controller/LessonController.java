@@ -24,8 +24,9 @@ public class LessonController {
     @GetMapping
     public ResponseEntity<?> getPagedLessons(
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size) {
-        return lessonService.getPagedLessons(page, size);
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "courseId", required = false) Integer courseId) {
+        return lessonService.getPagedLessons(courseId, page, size);
     }
 
     @GetMapping("/{id}")
