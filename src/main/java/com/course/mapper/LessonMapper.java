@@ -45,9 +45,9 @@ public class LessonMapper {
                 dto.setTeacherId(lesson.getCourse().getAccount().getId());
             }
 
-            if (lesson.getCourse().getCourseType() != null) {
-                dto.setCourseTypeName(lesson.getCourse().getCourseType().getName());
-            }
+          
+                dto.setCourseName(lesson.getCourse().getTitle());
+            
 
         }
         
