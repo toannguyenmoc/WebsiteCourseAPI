@@ -16,5 +16,5 @@ public interface CourseService {
     public CourseResponseDTO update(Integer id, CourseRequestDTO courseRequestDTO);
     public CourseResponseDTO findById(Integer id);              
     public CourseResponseDTO deleteById(Integer id); 
-    public ResponseEntity<?> getPagedCourses(int page, int size);
+    public ResponseEntity<?> getPagedCourses(int page, int size, String keyword);
 }

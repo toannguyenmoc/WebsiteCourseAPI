@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
-import com.course.model.Account;
 import com.course.model.AuthRequest;
 import com.course.service.AccountService;
 import com.course.service.JwtService;

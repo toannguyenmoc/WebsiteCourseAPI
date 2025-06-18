@@ -2,7 +2,6 @@ package com.course.controller;
 
 import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
-import com.course.model.Account;
 import com.course.service.AccountService;
 import com.course.service.JwtService;
 import jakarta.validation.Valid;

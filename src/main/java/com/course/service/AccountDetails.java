@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.course.model.Account;
 
 public class AccountDetails implements UserDetails {
+	private static final long serialVersionUID = 1L;
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;

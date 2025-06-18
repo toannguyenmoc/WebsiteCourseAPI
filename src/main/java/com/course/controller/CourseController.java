@@ -26,8 +26,9 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<?> getPagedCourses(
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size) {
-        return courseService.getPagedCourses(page, size);
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "keyword",defaultValue = "") String keyword) {
+        return courseService.getPagedCourses(page, size, keyword);
     }
 
     @GetMapping("/{id}")
