@@ -60,9 +60,10 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 	}
 
 	@Override
-	public AccountResponseDTO update(AccountRequestDTO dto) {
+	public AccountResponseDTO update(Integer id,AccountRequestDTO dto) {
+		findById(id); 
 		Account account = AccountMapper.toEntity(dto);
-		findById(account.getId()); // kiểm tra tồn tại
+		account.setId(id);
 		Account updated = accountRepository.save(account);
 		return AccountMapper.toResponse(updated);
 	}
@@ -117,6 +118,14 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 		Account user = accountRepository.findByEmail(email).get();
 		return user.getActive();
 	}
+	
+	public Account changeStatus(Integer accountId) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        account.setActive(!account.getActive()); // đảo trạng thái
+        return accountRepository.save(account);
+    }
 
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
+import com.course.model.Account;
 
 public interface AccountService {
 
@@ -14,7 +15,7 @@ public interface AccountService {
 
     public List<AccountResponseDTO> findAll();
 
-    public AccountResponseDTO update(AccountRequestDTO account);
+    public AccountResponseDTO update(Integer id, AccountRequestDTO account);
 
     public AccountResponseDTO findById(Integer id);
 
@@ -27,4 +28,6 @@ public interface AccountService {
     public ResponseEntity<?> getPagedStudent(int page, int size);
     
     public ResponseEntity<?> getPagedTeacher(int page, int size);
+    
+    public Account changeStatus(Integer accountId);
 }

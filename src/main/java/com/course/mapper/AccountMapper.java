@@ -26,6 +26,7 @@ public class AccountMapper {
 		dto.setId(account.getId());
 		dto.setEmail(account.getEmail());
 		dto.setFullname(account.getFullname());
+		dto.setPassword(account.getPassword());
 		dto.setGender(account.getGender());
 		dto.setBirthday(account.getBirthday());
 		dto.setAvatar(account.getAvatar());
