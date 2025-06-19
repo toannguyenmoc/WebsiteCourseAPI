@@ -47,12 +47,13 @@ public class AccountController {
         return ResponseEntity.ok().body( accountService.create(dto));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody AccountRequestDTO  dto) {
-        return ResponseEntity.ok().body( accountService.update(dto));
+    public ResponseEntity<?> update(@PathVariable("id") Integer id , @Valid @RequestBody AccountRequestDTO  dto) {
+        return ResponseEntity.ok().body( accountService.update(id , dto));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         return ResponseEntity.ok().body( accountService.deleteById(id));
     }
+    
 
 }
