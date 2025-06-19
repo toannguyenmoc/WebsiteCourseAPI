@@ -102,5 +102,9 @@ public class CourseServiceImpl implements CourseService {
 
 		return ResponseEntity.ok(response);
 	};
+	
+	public Boolean existSlug(String slug) {
+		return courseRepository.existsBySlug(slug);
+	}
 
 }
