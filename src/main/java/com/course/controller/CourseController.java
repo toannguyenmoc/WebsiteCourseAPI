@@ -56,5 +56,9 @@ public class CourseController {
         return ResponseEntity.ok(courseService.deleteById(id));
     }
 
+    @GetMapping("/check-slug")
+    public Boolean CheckSlug(@RequestParam(name = "keyword",required = false) String keyword) {
+    	return courseService.existSlug(keyword);
+    }
 }
 

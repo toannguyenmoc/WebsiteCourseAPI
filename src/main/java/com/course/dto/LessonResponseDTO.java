@@ -19,6 +19,8 @@ public class LessonResponseDTO {
     private String description;
     private String videoUrl;
     private String exerciseUrl;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date postedDate;
     private Boolean status;
     

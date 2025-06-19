@@ -35,4 +35,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 		    String keyword,
 		    Pageable pageable
 		);
+	
+	Boolean existsBySlug(String slug);
 }

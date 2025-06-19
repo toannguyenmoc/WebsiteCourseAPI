@@ -16,7 +16,7 @@ public interface CourseService {
     public CourseResponseDTO update(Integer id, CourseRequestDTO courseRequestDTO);
     public CourseResponseDTO findById(Integer id);              
     public CourseResponseDTO deleteById(Integer id); 
-
+    public Boolean existSlug(String slug);
     public ResponseEntity<?> getPagedCoursesByManyParams(int page, int size, 
     														String keyword,
     														Integer minPrice,

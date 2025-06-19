@@ -13,6 +13,7 @@ public class AccountResponseDTO {
     private Integer id;
     private String email;
     private String fullname;
+    private String password;
     private Boolean gender;
     private Date birthday;
     private String avatar;
