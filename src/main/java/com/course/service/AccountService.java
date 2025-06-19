@@ -2,6 +2,7 @@ package com.course.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.course.dto.AccountRequestDTO;
@@ -20,4 +21,10 @@ public interface AccountService {
     public AccountResponseDTO deleteById(Integer id);
 
     public UserDetails loadUserByUsername(String email);
+    
+    public boolean checkActive(String email);
+    
+    public ResponseEntity<?> getPagedStudent(int page, int size);
+    
+    public ResponseEntity<?> getPagedTeacher(int page, int size);
 }

@@ -69,9 +69,14 @@ public class LessonServiceImpl implements LessonService {
 	}
 	
 	@Override
-	public ResponseEntity<?> getPagedLessons(int page, int size) {
+	public ResponseEntity<?> getPagedLessons(Integer courseId,int page, int size) {
 	    Pageable pageable = PageRequest.of(page, size, Sort.by("postedDate").descending());
-	    Page<Lesson> list = lessonRepository.findAll(pageable);
+	    Page<Lesson> list;
+		if(courseId == null){
+			list = lessonRepository.findAll(pageable);
+		}else{
+			list = lessonRepository.findByCourseId(courseId, pageable);
+		}
 	    Page<LessonResponseDTO> result = list.map(LessonMapper::toResponse);
 
 	    Map<String, Object> response = new HashMap<>();
