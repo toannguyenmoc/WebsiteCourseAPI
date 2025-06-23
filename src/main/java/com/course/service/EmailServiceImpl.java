@@ -44,4 +44,14 @@ public class EmailServiceImpl implements EmailService {
 	    }
 	}
 
+	@Override
+	public void sendOTP(String to, String otp) {
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Mã OTP đặt lại mật khẩu");
+        message.setText("Mã OTP của bạn là: " + otp + "\nHiệu lực trong 60 giây.");
+        mailSender.send(message);
+		
+	}
+
 }

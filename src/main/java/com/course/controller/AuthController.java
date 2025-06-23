@@ -7,8 +7,14 @@ import com.course.model.AuthRequest;
 import com.course.service.AccountService;
 import com.course.service.EmailService;
 import com.course.service.JwtService;
+import com.course.service.OTPService;
+
 import jakarta.validation.Valid;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -27,6 +33,9 @@ public class AuthController {
 	
 	@Autowired
     private EmailService emailService;
+	
+	@Autowired
+    private OTPService otpService;
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@Valid @RequestBody AuthRequestDTO accountDto) {
@@ -96,4 +105,30 @@ public class AuthController {
 			throw new UsernameNotFoundException("Invalid user request!");
 		}
 	}
+	
+	@PostMapping("/send-otp")
+    public ResponseEntity<?> sendOTP(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String otp = otpService.generateOTP(email);
+        emailService.sendOTP(email, otp);
+        return ResponseEntity.ok("OTP sent");
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<?> verifyOTP(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String otp = request.get("otp");
+        if (otpService.validateOTP(email, otp)) {
+            return ResponseEntity.ok("OTP verified");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OTP is invalid");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String newPassword = request.get("newPassword");
+        
+        return ResponseEntity.ok("Password updated");
+    }
 }
