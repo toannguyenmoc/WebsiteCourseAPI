@@ -33,7 +33,7 @@ public class StudentController {
 	}
 	
 	@GetMapping("/change-status/{id}")
-	public ResponseEntity<?> changeStatus(@PathVariable Integer id) {
+	public ResponseEntity<?> changeStatus(@PathVariable("id") Integer id) {
         AccountResponseDTO updatedAccount = accountService.changeStatus(id);
         return ResponseEntity.ok(updatedAccount);
     }

@@ -109,7 +109,7 @@ public class AuthController {
 	@PostMapping("/send-otp")
     public ResponseEntity<?> sendOTP(@RequestBody Map<String, String> request) {
         String email = request.get("email");
-        String otp = otpService.generateOTP(email);
+        String otp = otpService.generateOtp(email);
         emailService.sendOTP(email, otp);
         return ResponseEntity.ok("OTP sent");
     }
@@ -118,7 +118,7 @@ public class AuthController {
     public ResponseEntity<?> verifyOTP(@RequestBody Map<String, String> request) {
         String email = request.get("email");
         String otp = request.get("otp");
-        if (otpService.validateOTP(email, otp)) {
+        if (otpService.validateOtp(email, otp)) {
             return ResponseEntity.ok("OTP verified");
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OTP is invalid");
@@ -129,6 +129,6 @@ public class AuthController {
         String email = request.get("email");
         String newPassword = request.get("newPassword");
         
-        return ResponseEntity.ok("Password updated");
+        return ResponseEntity.ok().body(accountService.forgotPassword(email, newPassword));
     }
 }
