@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.course.dto.AccountRequestDTO;
+import com.course.dto.AccountResponseDTO;
+import com.course.model.Account;
 import com.course.service.AccountDetails;
 
 @Service
@@ -30,8 +33,9 @@ public class JwtService {
         Claims claims = Jwts.claims();
         
         UserDetails user = accountService.loadUserByUsername(email);
+        AccountResponseDTO account = accountService.findByEmail(email);
         claims.put("role", user.getAuthorities());
-
+        claims.put("userId", account.getId());
         return createToken(claims, email);
     }
 

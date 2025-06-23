@@ -7,17 +7,13 @@ import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
 import com.course.model.Account;
 
-public class AccountMapper {
+public class UpdateAccountMapper {
 	public static Account toEntity(AccountRequestDTO dto) {
 		Account account = new Account();
-		account.setEmail(dto.getEmail());
-//		account.setPassword(dto.getPassword()); 
 		account.setFullname(dto.getFullname());
 		account.setGender(dto.getGender());
 		account.setBirthday(dto.getBirthday());
 		account.setAvatar(dto.getAvatar());
-		account.setRole(dto.getRole());
-		account.setActive(dto.getActive());
 		return account;
 	}
 
@@ -26,7 +22,6 @@ public class AccountMapper {
 		dto.setId(account.getId());
 		dto.setEmail(account.getEmail());
 		dto.setFullname(account.getFullname());
-		dto.setPassword(account.getPassword());
 		dto.setGender(account.getGender());
 		dto.setBirthday(account.getBirthday());
 		dto.setAvatar(account.getAvatar());
