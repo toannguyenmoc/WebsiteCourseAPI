@@ -32,9 +32,9 @@ public class StudentController {
 	 return accountService.getPagedStudent(page, size);
 	}
 	
-	@PutMapping("/change-status/{id}")
+	@GetMapping("/change-status/{id}")
 	public ResponseEntity<?> changeStatus(@PathVariable Integer id) {
-        Account updatedAccount = accountService.changeStatus(id);
+        AccountResponseDTO updatedAccount = accountService.changeStatus(id);
         return ResponseEntity.ok(updatedAccount);
     }
 	

@@ -7,11 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
+import com.course.dto.AuthRequestDTO;
+import com.course.dto.AuthResponseDTO;
 import com.course.model.Account;
 
 public interface AccountService {
 
-    public AccountResponseDTO create(AccountRequestDTO account);
+    public AuthResponseDTO create(AuthRequestDTO account);
 
     public List<AccountResponseDTO> findAll();
 
@@ -20,6 +22,8 @@ public interface AccountService {
     public AccountResponseDTO findById(Integer id);
 
     public AccountResponseDTO deleteById(Integer id);
+    
+    public AccountResponseDTO findByEmail(String email);
 
     public UserDetails loadUserByUsername(String email);
     
@@ -29,5 +33,7 @@ public interface AccountService {
     
     public ResponseEntity<?> getPagedTeacher(int page, int size);
     
-    public Account changeStatus(Integer accountId);
+    public AccountResponseDTO changeStatus(Integer accountId);
+    
+    public AccountResponseDTO updatePassword(Integer id, String password);
 }
