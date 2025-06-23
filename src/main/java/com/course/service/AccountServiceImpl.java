@@ -22,19 +22,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.course.dto.AccountRequestDTO;
 import com.course.dto.AccountResponseDTO;
+import com.course.dto.AuthRequestDTO;
+import com.course.dto.AuthResponseDTO;
 import com.course.exception.ResourceNotFoundException;
 import com.course.mapper.AccountMapper;
+import com.course.mapper.RegisterMapper;
 import com.course.model.Account;
 import com.course.repository.AccountRepository;
 
 @Service
 public class AccountServiceImpl implements AccountService, UserDetailsService {
 
+    private final LessonService lessonService;
+
 	@Autowired
 	private AccountRepository accountRepository;
 
 	@Autowired
 	private PasswordEncoder encoder;
+
+	
+    AccountServiceImpl(LessonService lessonService) {
+        this.lessonService = lessonService;
+    }
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -45,11 +55,11 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 	}
 
 	@Override
-	public AccountResponseDTO create(AccountRequestDTO dto) {
-		Account account = AccountMapper.toEntity(dto);
+	public AuthResponseDTO create(AuthRequestDTO dto) {
+		Account account = RegisterMapper.toEntity(dto);
 		account.setPassword(encoder.encode(dto.getPassword()));
 		Account saved = accountRepository.save(account);
-		return AccountMapper.toResponse(saved);
+		return RegisterMapper.toResponse(saved);
 	}
 
 	@Override
@@ -60,10 +70,11 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 	}
 
 	@Override
-	public AccountResponseDTO update(Integer id,AccountRequestDTO dto) {
-		findById(id); 
+	public AccountResponseDTO update(Integer id, AccountRequestDTO dto) {
+		AccountResponseDTO accountFindById = findById(id); 
 		Account account = AccountMapper.toEntity(dto);
 		account.setId(id);
+		account.setPassword(accountFindById.getPassword());
 		Account updated = accountRepository.save(account);
 		return AccountMapper.toResponse(updated);
 	}
@@ -119,13 +130,27 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 		return user.getActive();
 	}
 	
-	public Account changeStatus(Integer accountId) {
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
-
+	public AccountResponseDTO changeStatus(Integer accountId) {
+		Account account = accountRepository.findById(accountId).get();
         account.setActive(!account.getActive()); // đảo trạng thái
-        return accountRepository.save(account);
+        Account updatedAccount = accountRepository.save(account);
+        return AccountMapper.toResponse(updatedAccount);
     }
+
+	@Override
+	public AccountResponseDTO findByEmail(String email) {
+		Account account = accountRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản với email: " + email));
+		return AccountMapper.toResponse(account);
+	}
+
+	@Override
+	public AccountResponseDTO updatePassword(Integer id, String password) {
+		Account account = accountRepository.findById(id).get();
+		account.setPassword(encoder.encode(password));
+		Account updatedAccount = accountRepository.save(account);
+		return AccountMapper.toResponse(updatedAccount);
+	}
 
 	
 }

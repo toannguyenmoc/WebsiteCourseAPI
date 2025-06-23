@@ -42,18 +42,20 @@ public class AccountController {
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         return ResponseEntity.ok().body( accountService.findById(id));
     }
-    @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody AccountRequestDTO dto) {
-        return ResponseEntity.ok().body( accountService.create(dto));
-    }
+//    @PostMapping
+//    public ResponseEntity<?> create(@Valid @RequestBody AccountRequestDTO dto) {
+//        return ResponseEntity.ok().body( accountService.create(dto));
+//    }
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id , @Valid @RequestBody AccountRequestDTO  dto) {
+    	
         return ResponseEntity.ok().body( accountService.update(id , dto));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         return ResponseEntity.ok().body( accountService.deleteById(id));
     }
+   
     
 
 }
