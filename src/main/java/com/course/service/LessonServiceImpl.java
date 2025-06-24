@@ -70,7 +70,7 @@ public class LessonServiceImpl implements LessonService {
 	
 	@Override
 	public ResponseEntity<?> getPagedLessons(Integer courseId,int page, int size) {
-	    Pageable pageable = PageRequest.of(page, size, Sort.by("postedDate").descending());
+	    Pageable pageable = PageRequest.of(page, size, Sort.by("lesson").descending());
 	    Page<Lesson> list;
 		if(courseId == null){
 			list = lessonRepository.findAll(pageable);
@@ -86,6 +86,15 @@ public class LessonServiceImpl implements LessonService {
 	    response.put("totalPages", result.getTotalPages());
 
 	    return ResponseEntity.ok(response);
+	}
+
+	@Override
+	public List<LessonResponseDTO> getPagedLessonss(int page, int size, Integer userId) {
+		 Pageable pageable = PageRequest.of(page, size);
+		    Page<Lesson> list = lessonRepository.findLessonsByAccountIdAndRole2Native(userId, pageable);
+		    List<LessonResponseDTO> dto = list.stream().map(LessonMapper::toResponse).toList();
+		    
+		return dto;
 	}
 	
 
