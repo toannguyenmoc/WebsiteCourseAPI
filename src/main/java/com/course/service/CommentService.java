@@ -15,4 +15,5 @@ public interface CommentService {
     public CommentResponseDTO update(Integer id, CommentRequestDTO dto);
     public CommentResponseDTO findById(Integer id);
     public CommentResponseDTO deleteById(Integer id);
+    public List<CommentResponseDTO> findCourseId(Integer courseId);
 }
