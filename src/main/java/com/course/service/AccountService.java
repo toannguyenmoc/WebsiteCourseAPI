@@ -36,4 +36,6 @@ public interface AccountService {
     public AccountResponseDTO changeStatus(Integer accountId);
     
     public AccountResponseDTO updatePassword(Integer id, String password);
+    
+    public AccountResponseDTO forgotPassword(String email, String password);
 }
