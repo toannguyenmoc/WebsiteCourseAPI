@@ -17,9 +17,11 @@ public class PaymentResponseDTO {
     private String transactionCode;
    
     
-    private Integer accountId;
+    private Integer studentId;
     private Integer courseId;
+   
     
-    private String accountFullname;
+    private String accountTeacherName;
     private String courseName;
+    private String accountStudentName;
 }
