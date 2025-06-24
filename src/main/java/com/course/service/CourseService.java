@@ -2,6 +2,7 @@ package com.course.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,5 @@ public interface CourseService {
     														Integer minPrice,
     														Integer maxPrice,
     														List<Integer> courseTypeIds);
+    public ResponseEntity<?> findByAccountId(Integer accountId, int page, int size);
 }

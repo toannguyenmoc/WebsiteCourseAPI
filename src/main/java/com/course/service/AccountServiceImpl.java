@@ -139,14 +139,21 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 
 	@Override
 	public AccountResponseDTO findByEmail(String email) {
-		Account account = accountRepository.findByEmail(email)
-				.orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản với email: " + email));
+		Account account = accountRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản với email: " + email));
 		return AccountMapper.toResponse(account);
 	}
 
 	@Override
 	public AccountResponseDTO updatePassword(Integer id, String password) {
 		Account account = accountRepository.findById(id).get();
+		account.setPassword(encoder.encode(password));
+		Account updatedAccount = accountRepository.save(account);
+		return AccountMapper.toResponse(updatedAccount);
+	}
+
+	@Override
+	public AccountResponseDTO forgotPassword(String email, String password) {
+		Account account = accountRepository.findByEmail(email).get();
 		account.setPassword(encoder.encode(password));
 		Account updatedAccount = accountRepository.save(account);
 		return AccountMapper.toResponse(updatedAccount);

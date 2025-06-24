@@ -37,4 +37,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 		);
 	
 	Boolean existsBySlug(String slug);
+	
+	Page<Course> findByAccountId(Integer accountId, Pageable pageable);
 }

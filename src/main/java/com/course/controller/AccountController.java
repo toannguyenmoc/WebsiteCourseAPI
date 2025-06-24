@@ -39,7 +39,7 @@ public class AccountController {
         return ResponseEntity.ok().body( accountService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
+    public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok().body( accountService.findById(id));
     }
 //    @PostMapping
