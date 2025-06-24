@@ -19,7 +19,6 @@ public class CourseResponseDTO {
     private String description;
     private Integer price;
     
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date createdDate;
     private Boolean status;
 
