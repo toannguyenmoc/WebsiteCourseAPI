@@ -28,6 +28,14 @@ public class LessonController {
             @RequestParam(name = "courseId", required = false) Integer courseId) {
         return lessonService.getPagedLessons(courseId, page, size);
     }
+    @GetMapping("/listByUser")
+    public ResponseEntity<?> getPagedLessonsUserId(
+    		 @RequestParam(name = "page", defaultValue = "0") int page,
+             @RequestParam(name = "size", defaultValue = "10") int size,
+             @RequestParam(name = "userId", required = false) Integer userId){
+    return ResponseEntity.ok().body(lessonService.getPagedLessonss( page, size,userId));
+    }
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<LessonResponseDTO> getLessonById(@PathVariable("id") Integer id) {

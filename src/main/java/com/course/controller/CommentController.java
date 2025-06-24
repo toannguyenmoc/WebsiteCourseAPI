@@ -15,6 +15,12 @@ import jakarta.validation.Valid;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+
+    @GetMapping("/by-course")
+    public ResponseEntity<?> getCourseId(@RequestParam("courseId") Integer courseId){
+        return ResponseEntity.ok().body(commentService.findCourseId(courseId));
+    }
+
     @GetMapping
     public ResponseEntity<?> getAllComments() {
         return ResponseEntity.ok().body(commentService.findAll());
@@ -23,6 +29,7 @@ public class CommentController {
     public ResponseEntity<?> getCommentById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(commentService.findById(id));
     }
+
     @PostMapping
     public ResponseEntity<?> createComment(@Valid @RequestBody CommentRequestDTO dto) {
         return ResponseEntity.ok().body(commentService.create(dto));

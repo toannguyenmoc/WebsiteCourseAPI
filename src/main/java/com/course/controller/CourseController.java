@@ -60,5 +60,14 @@ public class CourseController {
     public Boolean CheckSlug(@RequestParam(name = "keyword",required = false) String keyword) {
     	return courseService.existSlug(keyword);
     }
+    
+    @GetMapping("/by-account")
+    public ResponseEntity<?> getCoursesByAccountId(
+            @RequestParam(name = "accountId", required = false) Integer accountId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
+
+        return courseService.findByAccountId(accountId, page, size);
+    }
 }
 

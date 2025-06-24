@@ -103,6 +103,26 @@ public class CourseServiceImpl implements CourseService {
 		return ResponseEntity.ok(response);
 	};
 	
+	@Override
+	public ResponseEntity<?> findByAccountId(Integer accountId, int page, int size) {
+	    Pageable pageable = PageRequest.of(page, size,
+	            Sort.by("createdDate").descending().and(Sort.by("title").ascending()));
+
+	    Page<Course> coursePage = courseRepository.findByAccountId(accountId, pageable);
+	    Page<CourseResponseDTO> result = coursePage.map(CourseMapper::toResponse);
+
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("data", result.getContent());
+	    response.put("currentPage", result.getNumber());
+	    response.put("totalItems", result.getTotalElements());
+	    response.put("totalPages", result.getTotalPages());
+
+	    return ResponseEntity.ok(response);
+	}
+
+
+
+	
 	public Boolean existSlug(String slug) {
 		return courseRepository.existsBySlug(slug);
 	}
