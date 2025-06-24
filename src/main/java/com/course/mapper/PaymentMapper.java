@@ -37,7 +37,7 @@ public class PaymentMapper {
 		 PaymentResponseDTO dto = new PaymentResponseDTO();
 	        dto.setId(payment.getId());
 	        dto.setTotalAmount(payment.getTotalAmount());
-	        dto.setDiscount(payment.getDiscount());
+	        dto.setDiscount(payment.getCourse().getCommission().getPercentage());
 	        dto.setTransactionCode(payment.getTransactionCode());
 	        dto.setRegistrationDate(payment.getRegistrationDate());
 	      
@@ -48,11 +48,22 @@ public class PaymentMapper {
 	        }
 	        
 	        if (payment.getAccount() != null) {
-	            dto.setAccountId(payment.getAccount().getId());
-	            dto.setAccountFullname(payment.getAccount().getFullname());
-	        }  
+	            dto.setStudentId(payment.getAccount().getId());
+	            dto.setAccountStudentName(payment.getAccount().getFullname());
+	        }
+	        if (payment.getAccount() != null) {
+	           
+	            dto.setAccountTeacherName(payment.getCourse().getAccount().getFullname());
+	        }
+	        
+	       
+	      
 
 	        return dto;
 	    }
-	 
-}
+	
+		 
+		 
+		 
+	 }
+

@@ -2,8 +2,6 @@ package com.course.dto;
 
 import java.util.Date;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 @Data
@@ -20,6 +18,8 @@ public class PaymentRequestDTO {
     
     @NotNull(message = "AccountId không được để trống")
     private Integer accountId;
+    
+    private Integer role;
     
     @NotNull(message = "CourseId không được để trống")
     private Integer courseId;

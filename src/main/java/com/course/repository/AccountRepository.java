@@ -11,4 +11,5 @@ import com.course.model.Account;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByEmail(String email);
     Page<Account> findByRole(int role, Pageable pageable);
+    
 }
