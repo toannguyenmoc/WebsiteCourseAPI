@@ -39,6 +39,8 @@ public class CommentMapper {
 
         if (comment.getAccount() != null) {
             dto.setAccountId(comment.getAccount().getId());
+            dto.setNameAccount(comment.getAccount().getFullname());
+            dto.setImage(comment.getAccount().getAvatar());
         }
 
         if (comment.getCourse() != null) {

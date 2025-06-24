@@ -30,9 +30,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentResponseDTO> findAll() {
         List<Comment> comments = commentRepository.findAll()
-            .stream()
-            .sorted(Comparator.comparing(Comment::getCommentedDate).reversed())
-            .collect(Collectors.toList());
+                .stream()
+                .sorted(Comparator.comparing(Comment::getCommentedDate).reversed())
+                .collect(Collectors.toList());
         return CommentMapper.toResponseDTOList(comments);
     }
 
@@ -54,8 +54,18 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDTO deleteById(Integer id) {
-    	CommentResponseDTO comment = findById(id);
-    	commentRepository.deleteById(id);
+        CommentResponseDTO comment = findById(id);
+        commentRepository.deleteById(id);
         return comment;
+    }
+
+    @Override
+    public List<CommentResponseDTO> findCourseId(Integer courseId) {
+        List<Comment> comments = commentRepository.findByCourseId(courseId)
+                .stream()
+                .sorted(Comparator.comparing(Comment::getCommentedDate).reversed())
+                .collect(Collectors.toList());
+        List<CommentResponseDTO> dtos = comments.stream().map(CommentMapper::toResponse).toList();
+        return dtos;
     }
 }
