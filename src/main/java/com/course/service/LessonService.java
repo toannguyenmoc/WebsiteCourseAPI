@@ -17,5 +17,5 @@ public interface LessonService {
     public LessonResponseDTO findById(Integer id);              
     public LessonResponseDTO deleteById(Integer id); 
     public ResponseEntity<?> getPagedLessons(Integer courseId, int page, int size);
-
+    public List<LessonResponseDTO> getPagedLessonss(int page, int size, Integer userId);
 }
