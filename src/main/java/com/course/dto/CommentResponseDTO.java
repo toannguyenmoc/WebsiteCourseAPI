@@ -11,5 +11,7 @@ public class CommentResponseDTO {
     private Integer parentComment;
     private Date commentedDate;
     private Integer accountId;
+    private String nameAccount;
+    private String image;
     private Integer courseId;
 }
