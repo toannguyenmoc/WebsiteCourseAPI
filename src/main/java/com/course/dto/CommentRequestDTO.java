@@ -16,7 +16,7 @@ public class CommentRequestDTO {
 
     @NotBlank(message = "Comment không được để trống")
     private String comment;
-    @NotNull(message = "Parent comment không được để trống")
+
     private Integer parentComment;
 
     private Date commentedDate = new Date();
