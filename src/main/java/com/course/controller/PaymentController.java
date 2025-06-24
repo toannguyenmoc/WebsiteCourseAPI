@@ -32,7 +32,7 @@ public class PaymentController {
 	@GetMapping
 	public ResponseEntity<?> getPagedCommission(
 			@RequestParam(name = "page", defaultValue = "0") int page,
-			@RequestParam(name = "size", defaultValue = "3") int size) {
+			@RequestParam(name = "size", defaultValue = "6") int size) {
 		return paymentService.getPagedPayment(page, size);
 	}
 
