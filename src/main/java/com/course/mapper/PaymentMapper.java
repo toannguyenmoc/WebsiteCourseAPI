@@ -50,11 +50,9 @@ public class PaymentMapper {
 	        if (payment.getAccount() != null) {
 	            dto.setAccountId(payment.getAccount().getId());
 	            dto.setAccountFullname(payment.getAccount().getFullname());
-	        }
-	        
-	       
-	      
+	        }  
 
 	        return dto;
 	    }
+	 
 }

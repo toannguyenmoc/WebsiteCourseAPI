@@ -5,8 +5,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Data
 public class CourseRequestDTO {
 
@@ -29,7 +27,6 @@ public class CourseRequestDTO {
 
     private Boolean status;
     
-    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "Ngày không được để trống")
     private Date createdDate;
 
